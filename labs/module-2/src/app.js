@@ -1,4 +1,5 @@
 import express from 'express'
+import studentsRouter from './routes/students.js'
 
 export function createApp() {
   const app = express()
@@ -8,5 +9,6 @@ export function createApp() {
     res.json({ status: 'ok', module: 2 })
   })
 
+  app.use('/students', studentsRouter)
   return app
 }
