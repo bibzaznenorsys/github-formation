@@ -21,7 +21,7 @@
         "acceptance": [
           "Dependencies installed successfully",
           "Smoke test passes (Express app responds on GET /health)",
-          "You can start the server locally"
+          "No code changes — push empty commit: git commit --allow-empty -m \"lab: step 00 complete\" && git push"
         ]
       }
     },

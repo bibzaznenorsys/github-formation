@@ -33,6 +33,13 @@ ${commands}
 ${acceptance}
 
 When \`npm test\` passes locally, commit and push. This issue will update automatically.
+${step.id === '00-intro' ? `
+
+**No code changes on this step.** Run:
+\`\`\`bash
+git commit --allow-empty -m "lab: step 00 complete"
+git push origin ${step.branch}
+\`\`\`` : ''}
 LAB-CURRENT-STEP-END`
 }
 

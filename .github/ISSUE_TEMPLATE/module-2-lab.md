@@ -34,7 +34,14 @@ Explore the project structure. No Copilot coding required yet — just verify th
 - Dependencies installed successfully
 - Smoke test passes (Express app responds on GET /health)
 
-When tests pass locally, commit and push. This issue will update automatically.
+**No code changes needed on this step.** When the test passes, push an empty commit to trigger the lab check:
+
+```bash
+git commit --allow-empty -m "lab: step 00 complete"
+git push origin feature/module-2/00-intro
+```
+
+Your issue will update automatically with step 2.
 
 LAB-CURRENT-STEP-END
 
