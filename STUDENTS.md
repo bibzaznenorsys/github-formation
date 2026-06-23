@@ -7,6 +7,6 @@
 
 Direct link (replace `YOUR-USERNAME`):
 
-`https://github.com/YOUR-USERNAME/github-formation/issues/new/choose`
+`https://github.com/YOUR-USERNAME/github-formation/issues/new?template=module-2-lab.md`
 
 Then open [labs/module-2/README.md](labs/module-2/README.md) for clone and test commands.

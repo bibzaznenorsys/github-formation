@@ -30,10 +30,10 @@ On **your fork**:
 Direct link (replace `YOUR-USERNAME` with your GitHub login):
 
 ```
-https://github.com/YOUR-USERNAME/github-formation/issues/new/choose
+https://github.com/YOUR-USERNAME/github-formation/issues/new?template=module-2-lab.md
 ```
 
-Example: `https://github.com/bibzaznenorsys/github-formation/issues/new/choose`
+Example: `https://github.com/bibzaznenorsys/github-formation/issues/new?template=module-2-lab.md`
 
 Your issue is your **only guide** — follow the **Current step** section after each push.
 
