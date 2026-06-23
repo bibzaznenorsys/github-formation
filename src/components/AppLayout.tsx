@@ -1,8 +1,9 @@
-import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material'
-import { Link as RouterLink, useLocation } from 'react-router-dom'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Box, Container, IconButton, Stack, Typography } from '@mui/material'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CourseModule } from '../types/module'
-import { LanguageSwitcher } from './LanguageSwitcher'
+import { AppDrawer } from './AppDrawer'
 
 interface AppLayoutProps {
   title: string
@@ -13,13 +14,8 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ title, subtitle, modules, day, children }: AppLayoutProps) {
-  const location = useLocation()
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const { t } = useTranslation('common')
-
-  const navItems = [
-    { label: t('navigation.dashboard'), to: '/' },
-    { label: t('navigation.journey'), to: '/journey' },
-  ]
 
   return (
     <Box className="root-bg">
@@ -43,45 +39,38 @@ export function AppLayout({ title, subtitle, modules, day, children }: AppLayout
               borderColor: 'divider',
             }}
           >
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: 'flex-start' }}>
-              <Box sx={{ flexGrow: 1 }}>
+            <Stack direction="row" spacing={2} sx={{ alignItems: 'flex-start' }}>
+              <Box sx={{ flexGrow: 1, minWidth: 0 }}>
                 <Typography variant="h4">{title}</Typography>
                 <Typography color="text.secondary" sx={{ mt: 0.8 }}>
                   {subtitle}
                 </Typography>
               </Box>
-              <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
-                <LanguageSwitcher />
-                {navItems.map((item) => (
-                  <Button
-                    key={item.to}
-                    component={RouterLink}
-                    to={item.to}
-                    variant={location.pathname === item.to ? 'contained' : 'outlined'}
-                    size="small"
-                  >
-                    {item.label}
-                  </Button>
-                ))}
-              </Stack>
-            </Stack>
-            <Stack direction="row" spacing={1} useFlexGap sx={{ mt: 2, flexWrap: 'wrap' }}>
-              {modules.map((moduleData) => (
-                <Chip
-                  key={moduleData.id}
-                  component={RouterLink}
-                  clickable
-                  to={`/session/${moduleData.day}`}
-                  color={moduleData.day === day ? 'primary' : 'default'}
-                  label={`Module ${moduleData.day}: ${moduleData.title}`}
-                  sx={{ textDecoration: 'none' }}
-                />
-              ))}
+              <IconButton
+                aria-label={t('navigation.menu')}
+                onClick={() => setDrawerOpen(true)}
+                sx={{
+                  bgcolor: 'background.paper',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  flexShrink: 0,
+                  '&:hover': { bgcolor: 'background.paper' },
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
             </Stack>
           </Box>
           <Box sx={{ p: { xs: 2, md: 3 } }}>{children}</Box>
         </Box>
       </Container>
+
+      <AppDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        modules={modules}
+        day={day}
+      />
     </Box>
   )
 }

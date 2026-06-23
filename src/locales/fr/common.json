@@ -1,7 +1,12 @@
 {
   "navigation": {
     "dashboard": "Tableau de bord",
-    "journey": "Parcours"
+    "journey": "Parcours",
+    "menu": "Menu",
+    "closeMenu": "Fermer le menu",
+    "pages": "Pages",
+    "language": "Langue",
+    "modules": "Modules"
   },
   "dashboard": {
     "title": "Plateforme Compagnon Formateur",

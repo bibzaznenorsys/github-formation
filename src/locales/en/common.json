@@ -1,7 +1,12 @@
 {
   "navigation": {
     "dashboard": "Dashboard",
-    "journey": "Journey"
+    "journey": "Journey",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "pages": "Pages",
+    "language": "Language",
+    "modules": "Modules"
   },
   "dashboard": {
     "title": "Trainer Companion Platform",
