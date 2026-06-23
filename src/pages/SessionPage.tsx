@@ -13,6 +13,7 @@ import {
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../components/AppLayout'
+import { CollapsibleSection, CollapsibleSubsection } from '../components/CollapsibleSection'
 import { MarkdownPanel } from '../components/MarkdownPanel'
 import { getAllModules, getModuleByDay } from '../lib/content/loadModules'
 import { useLocalStorageState } from '../lib/useLocalStorageState'
@@ -47,79 +48,67 @@ export function SessionPage() {
       day={current.day}
     >
       <Stack spacing={2}>
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              {t('session.objectives')}
-            </Typography>
-            <Stack component="ul" spacing={0.5} sx={{ my: 0, pl: 3 }}>
-              {current.objectives.map((objective) => (
-                <Typography component="li" key={objective}>
-                  {objective}
-                </Typography>
-              ))}
-            </Stack>
-          </CardContent>
-        </Card>
+        <CollapsibleSection
+          title={t('session.referenceMaterials')}
+          storageKey={`session:${dayNumber}:reference`}
+          defaultExpanded={false}
+        >
+          <Stack spacing={2.5} divider={<Divider flexItem />}>
+            <CollapsibleSubsection title={t('session.objectives')}>
+              <Stack component="ul" spacing={0.5} sx={{ my: 0, pl: 3 }}>
+                {current.objectives.map((objective) => (
+                  <Typography component="li" key={objective}>
+                    {objective}
+                  </Typography>
+                ))}
+              </Stack>
+            </CollapsibleSubsection>
 
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              {t('session.unitSteps')}
-            </Typography>
-            <Stack component="ul" spacing={0.8} sx={{ my: 0, pl: 3 }}>
-              {current.units.map((unit) => (
-                <Typography component="li" key={unit.uid}>
-                  {unit.title}
-                </Typography>
-              ))}
-            </Stack>
-          </CardContent>
-        </Card>
+            <CollapsibleSubsection title={t('session.unitSteps')}>
+              <Stack component="ul" spacing={0.8} sx={{ my: 0, pl: 3 }}>
+                {current.units.map((unit) => (
+                  <Typography component="li" key={unit.uid}>
+                    {unit.title}
+                  </Typography>
+                ))}
+              </Stack>
+            </CollapsibleSubsection>
 
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              {t('session.theoreticalDeliveryAgenda')}
-            </Typography>
-            <Stack component="ul" spacing={0.8} sx={{ my: 0, pl: 3 }}>
-              {current.agenda.map((item) => (
-                <Typography component="li" key={item.label}>
-                  <strong>{item.label}</strong> ({item.minutes} {t('session.minutes')}): {item.focus}
-                </Typography>
-              ))}
-            </Stack>
-          </CardContent>
-        </Card>
+            <CollapsibleSubsection title={t('session.theoreticalDeliveryAgenda')}>
+              <Stack component="ul" spacing={0.8} sx={{ my: 0, pl: 3 }}>
+                {current.agenda.map((item) => (
+                  <Typography component="li" key={item.label}>
+                    <strong>{item.label}</strong> ({item.minutes} {t('session.minutes')}): {item.focus}
+                  </Typography>
+                ))}
+              </Stack>
+            </CollapsibleSubsection>
 
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              {t('session.officialGuidanceAlignment')}
-            </Typography>
-            <Stack component="ul" spacing={0.7} sx={{ my: 0, pl: 3 }}>
-              {current.officialAlignment.map((point) => (
-                <Typography component="li" key={point}>
-                  {point}
-                </Typography>
-              ))}
-            </Stack>
-            <Divider sx={{ my: 2 }} />
-            <Stack direction={{ xs: 'column', md: 'row' }} spacing={1}>
-              {current.officialDocs.map((doc) => (
-                <Button
-                  key={doc.href}
-                  href={doc.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="outlined"
-                >
-                  {doc.title}
-                </Button>
-              ))}
-            </Stack>
-          </CardContent>
-        </Card>
+            <CollapsibleSubsection title={t('session.officialGuidanceAlignment')}>
+              <Stack component="ul" spacing={0.7} sx={{ my: 0, pl: 3 }}>
+                {current.officialAlignment.map((point) => (
+                  <Typography component="li" key={point}>
+                    {point}
+                  </Typography>
+                ))}
+              </Stack>
+              <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} sx={{ mt: 1.5 }}>
+                {current.officialDocs.map((doc) => (
+                  <Button
+                    key={doc.href}
+                    href={doc.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    variant="outlined"
+                    size="small"
+                  >
+                    {doc.title}
+                  </Button>
+                ))}
+              </Stack>
+            </CollapsibleSubsection>
+          </Stack>
+        </CollapsibleSection>
 
         <Card>
           <CardContent>

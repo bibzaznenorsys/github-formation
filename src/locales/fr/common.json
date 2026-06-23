@@ -42,7 +42,12 @@
     "unitSteps": "Étapes unitaires (Séquence officielle)",
     "theoreticalDeliveryAgenda": "Agenda de livraison théorique",
     "officialGuidanceAlignment": "Alignement du guide officiel",
+    "referenceMaterials": "Objectifs, étapes, agenda et guide",
     "minutes": "minutes"
+  },
+  "collapsible": {
+    "showSection": "Afficher {{title}}",
+    "hideSection": "Masquer {{title}}"
   },
   "demo": {
     "title": "Mode démo",

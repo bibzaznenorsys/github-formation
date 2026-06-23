@@ -6,6 +6,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote'
 import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../components/AppLayout'
+import { CollapsibleSection } from '../components/CollapsibleSection'
 import { getAllModules } from '../lib/content/loadModules'
 
 export function DashboardPage() {
@@ -64,46 +65,48 @@ export function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              {t('dashboard.officialGuidance')}
-            </Typography>
-            <Stack component="ul" spacing={0.5} sx={{ my: 0, pl: 3 }}>
-              {officialHighlights.map((point) => (
-                <Typography component="li" key={point}>
-                  {point}
-                </Typography>
-              ))}
-            </Stack>
-            <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} sx={{ mt: 2 }}>
-              <Button
-                href="https://docs.github.com/en/copilot/about-github-copilot/what-is-github-copilot"
-                target="_blank"
-                rel="noreferrer"
-                variant="outlined"
-              >
-                {t('dashboard.buttons.whatIsCopilot')}
-              </Button>
-              <Button
-                href="https://docs.github.com/en/copilot/about-github-copilot/github-copilot-features"
-                target="_blank"
-                rel="noreferrer"
-                variant="outlined"
-              >
-                {t('dashboard.buttons.copilotFeatures')}
-              </Button>
-              <Button
-                href="https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/prompt-engineering-for-copilot-chat"
-                target="_blank"
-                rel="noreferrer"
-                variant="outlined"
-              >
-                {t('dashboard.buttons.promptEngineering')}
-              </Button>
-            </Stack>
-          </CardContent>
-        </Card>
+        <CollapsibleSection
+          title={t('dashboard.officialGuidance')}
+          storageKey="dashboard:officialGuidance"
+          defaultExpanded={false}
+        >
+          <Stack component="ul" spacing={0.5} sx={{ my: 0, pl: 3 }}>
+            {officialHighlights.map((point) => (
+              <Typography component="li" key={point}>
+                {point}
+              </Typography>
+            ))}
+          </Stack>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} sx={{ mt: 2 }}>
+            <Button
+              href="https://docs.github.com/en/copilot/about-github-copilot/what-is-github-copilot"
+              target="_blank"
+              rel="noreferrer"
+              variant="outlined"
+              size="small"
+            >
+              {t('dashboard.buttons.whatIsCopilot')}
+            </Button>
+            <Button
+              href="https://docs.github.com/en/copilot/about-github-copilot/github-copilot-features"
+              target="_blank"
+              rel="noreferrer"
+              variant="outlined"
+              size="small"
+            >
+              {t('dashboard.buttons.copilotFeatures')}
+            </Button>
+            <Button
+              href="https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/prompt-engineering-for-copilot-chat"
+              target="_blank"
+              rel="noreferrer"
+              variant="outlined"
+              size="small"
+            >
+              {t('dashboard.buttons.promptEngineering')}
+            </Button>
+          </Stack>
+        </CollapsibleSection>
         <Grid container spacing={2}>
           {quickActions.map((item) => (
             <Grid size={{ xs: 12, md: 6 }} key={item.title}>
