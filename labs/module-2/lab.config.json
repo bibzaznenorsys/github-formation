@@ -1,0 +1,121 @@
+{
+  "module": 2,
+  "label": "module-2-lab",
+  "repo": "HansLanda14ib/github-formation",
+  "labPath": "labs/module-2",
+  "steps": [
+    {
+      "id": "00-intro",
+      "order": 1,
+      "title": "Setup — clone, install, first run",
+      "branch": "feature/module-2/00-intro",
+      "testFiles": ["tests/step-00-intro.test.js"],
+      "issueText": {
+        "copilotHint": "Explore the project structure. No Copilot coding required yet — just verify the app starts.",
+        "commands": [
+          "cd labs/module-2",
+          "npm install",
+          "npm test",
+          "npm start"
+        ],
+        "acceptance": [
+          "Dependencies installed successfully",
+          "Smoke test passes (Express app responds on GET /health)",
+          "You can start the server locally"
+        ]
+      }
+    },
+    {
+      "id": "01-schemas",
+      "order": 2,
+      "title": "Scaffold Student and Class validation",
+      "branch": "feature/module-2/01-schemas",
+      "testFiles": ["tests/step-01-schemas.test.js"],
+      "issueText": {
+        "copilotHint": "Use inline suggestions or inline chat (Ctrl+I / Cmd+I) to implement validateStudent() and validateClass() in src/validators.js.",
+        "commands": [
+          "git checkout feature/module-2/01-schemas",
+          "npm test"
+        ],
+        "acceptance": [
+          "validateStudent rejects missing studentId, fullName, or email",
+          "validateClass rejects missing classCode or teacher",
+          "Validators return { valid: true } or { valid: false, error: '...' }"
+        ]
+      }
+    },
+    {
+      "id": "02-student-route",
+      "order": 3,
+      "title": "Implement POST /students",
+      "branch": "feature/module-2/02-student-route",
+      "testFiles": ["tests/step-02-student-route.test.js"],
+      "issueText": {
+        "copilotHint": "Use inline chat to implement POST /students in src/routes/students.js. Wire it in src/app.js.",
+        "commands": [
+          "git checkout feature/module-2/02-student-route",
+          "npm test"
+        ],
+        "acceptance": [
+          "POST /students returns 201 with valid payload",
+          "POST /students returns 400 with missing fields"
+        ]
+      }
+    },
+    {
+      "id": "03-class-route",
+      "order": 4,
+      "title": "Implement POST /classes",
+      "branch": "feature/module-2/03-class-route",
+      "testFiles": ["tests/step-03-class-route.test.js"],
+      "issueText": {
+        "copilotHint": "Use Copilot Chat to implement POST /classes in src/routes/classes.js.",
+        "commands": [
+          "git checkout feature/module-2/03-class-route",
+          "npm test"
+        ],
+        "acceptance": [
+          "POST /classes returns 201 with valid payload",
+          "POST /classes returns 400 with missing fields"
+        ]
+      }
+    },
+    {
+      "id": "04-duplicate-errors",
+      "order": 5,
+      "title": "Duplicate handling and unified errors",
+      "branch": "feature/module-2/04-duplicate-errors",
+      "testFiles": ["tests/step-04-duplicate-errors.test.js"],
+      "issueText": {
+        "copilotHint": "Ask Copilot to add 409 conflict responses and a shared { error: '...' } format for all error responses.",
+        "commands": [
+          "git checkout feature/module-2/04-duplicate-errors",
+          "npm test"
+        ],
+        "acceptance": [
+          "Duplicate studentId returns 409",
+          "Duplicate classCode returns 409",
+          "All errors use { error: string } body"
+        ]
+      }
+    },
+    {
+      "id": "05-tests-and-docs",
+      "order": 6,
+      "title": "Final integration and lab README",
+      "branch": "feature/module-2/05-tests-and-docs",
+      "testFiles": ["tests/step-05-integration.test.js"],
+      "issueText": {
+        "copilotHint": "Use /tests slash command or Copilot Chat to review test coverage. Update LAB-NOTES.md with what you learned.",
+        "commands": [
+          "git checkout feature/module-2/05-tests-and-docs",
+          "npm test"
+        ],
+        "acceptance": [
+          "Full integration test suite passes",
+          "LAB-NOTES.md contains your Copilot workflow notes"
+        ]
+      }
+    }
+  ]
+}

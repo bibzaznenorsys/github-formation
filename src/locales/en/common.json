@@ -65,7 +65,18 @@
     "subtitle": "Guided practice with expected outcomes and troubleshooting",
     "expectedOutcomes": "Expected Outcomes",
     "troubleshootingTips": "Troubleshooting Tips",
-    "labLinks": "Lab Links"
+    "labLinks": "Lab Links",
+    "labWorkflow": {
+      "title": "Hands-on Lab (Express + Tests)",
+      "subtitle": "Participants clone the repo, click Start exercise, then follow their GitHub Issue step by step.",
+      "stepClone": "Clone the repository and run npm install in labs/module-2",
+      "stepReadme": "Open labs/module-2/README.md for context and prerequisites",
+      "stepIssue": "Click Start exercise to create a personal GitHub Issue",
+      "stepFollow": "Follow only the Current step in your issue — it updates after each push",
+      "startExercise": "Start exercise",
+      "openReadme": "Open lab README",
+      "stepsReference": "Lab branches reference (trainer view)"
+    }
   },
   "quiz": {
     "title": "Quiz Mode",

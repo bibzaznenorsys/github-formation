@@ -1,8 +1,11 @@
+import GitHubIcon from '@mui/icons-material/GitHub'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import { Alert, Button, Card, CardContent, Divider, Stack, Typography } from '@mui/material'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AppLayout } from '../components/AppLayout'
+import { CollapsibleSection } from '../components/CollapsibleSection'
 import { getAllModules, getModuleByDay } from '../lib/content/loadModules'
 
 export function ExerciseModePage() {
@@ -20,6 +23,8 @@ export function ExerciseModePage() {
     )
   }
 
+  const lab = current.exercise.lab
+
   return (
     <AppLayout
       title={`${t('exercise.title')} · Day ${current.day}`}
@@ -28,6 +33,48 @@ export function ExerciseModePage() {
       day={current.day}
     >
       <Stack spacing={2}>
+        {lab && (
+          <Card sx={{ borderColor: 'primary.main', borderWidth: 1, borderStyle: 'solid' }}>
+            <CardContent>
+              <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 1 }}>
+                <GitHubIcon color="primary" />
+                <Typography variant="h5">{t('exercise.labWorkflow.title')}</Typography>
+              </Stack>
+              <Typography color="text.secondary" sx={{ mb: 2 }}>
+                {t('exercise.labWorkflow.subtitle')}
+              </Typography>
+              <Stack component="ol" spacing={0.8} sx={{ m: 0, pl: 3, mb: 2 }}>
+                <Typography component="li">{t('exercise.labWorkflow.stepClone')}</Typography>
+                <Typography component="li">{t('exercise.labWorkflow.stepReadme')}</Typography>
+                <Typography component="li">{t('exercise.labWorkflow.stepIssue')}</Typography>
+                <Typography component="li">{t('exercise.labWorkflow.stepFollow')}</Typography>
+              </Stack>
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.2}>
+                <Button
+                  href={lab.issueTemplateUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="contained"
+                  startIcon={<GitHubIcon />}
+                  endIcon={<OpenInNewIcon />}
+                >
+                  {t('exercise.labWorkflow.startExercise')}
+                </Button>
+                <Button
+                  href={`https://github.com/HansLanda14ib/github-formation/blob/main/${lab.readmePath}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="outlined"
+                  startIcon={<MenuBookIcon />}
+                  endIcon={<OpenInNewIcon />}
+                >
+                  {t('exercise.labWorkflow.openReadme')}
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
+        )}
+
         <Card>
           <CardContent>
             <Typography variant="h5" sx={{ mb: 1.5 }}>
@@ -42,6 +89,28 @@ export function ExerciseModePage() {
             </Stack>
           </CardContent>
         </Card>
+
+        {lab && (
+          <CollapsibleSection
+            title={t('exercise.labWorkflow.stepsReference')}
+            storageKey={`exercise:${current.day}:lab-steps`}
+            defaultExpanded={false}
+          >
+            <Stack spacing={1.5}>
+              {lab.steps.map((step, index) => (
+                <Stack key={step.branch} spacing={0.3}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                    {index + 1}. {step.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <code>{step.branch}</code> — {step.copilotHint}
+                  </Typography>
+                </Stack>
+              ))}
+            </Stack>
+          </CollapsibleSection>
+        )}
+
         <Card>
           <CardContent>
             <Typography variant="h6">{t('exercise.expectedOutcomes')}</Typography>

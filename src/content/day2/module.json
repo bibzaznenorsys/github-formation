@@ -90,14 +90,51 @@
     ],
     "links": [
       {
-        "label": "GitHub Skills Exercise",
-        "href": "https://github.com/skills/getting-started-with-github-copilot"
+        "label": "Lab README",
+        "href": "https://github.com/HansLanda14ib/github-formation/tree/main/labs/module-2"
       },
       {
         "label": "Copilot Documentation",
         "href": "https://docs.github.com/en/copilot/about-github-copilot/what-is-github-copilot"
       }
-    ]
+    ],
+    "lab": {
+      "repoPath": "labs/module-2",
+      "readmePath": "labs/module-2/README.md",
+      "issueTemplateUrl": "https://github.com/HansLanda14ib/github-formation/issues/new?template=module-2-lab.yml&labels=module-2-lab",
+      "steps": [
+        {
+          "branch": "feature/module-2/00-intro",
+          "title": "Setup — clone, install, first run",
+          "copilotHint": "Verify the app starts with npm test."
+        },
+        {
+          "branch": "feature/module-2/01-schemas",
+          "title": "Scaffold Student and Class validation",
+          "copilotHint": "Use inline chat to implement validators.js."
+        },
+        {
+          "branch": "feature/module-2/02-student-route",
+          "title": "Implement POST /students",
+          "copilotHint": "Use inline chat for the students route."
+        },
+        {
+          "branch": "feature/module-2/03-class-route",
+          "title": "Implement POST /classes",
+          "copilotHint": "Use Copilot Chat for the classes route."
+        },
+        {
+          "branch": "feature/module-2/04-duplicate-errors",
+          "title": "Duplicate handling and unified errors",
+          "copilotHint": "Add 409 responses and { error } format."
+        },
+        {
+          "branch": "feature/module-2/05-tests-and-docs",
+          "title": "Final integration and LAB-NOTES.md",
+          "copilotHint": "Complete integration tests and document your Copilot workflow."
+        }
+      ]
+    }
   },
   "quiz": [
     {

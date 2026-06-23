@@ -29,12 +29,26 @@ export interface DemoData {
   steps: string[]
 }
 
+export interface LabStepData {
+  branch: string
+  title: string
+  copilotHint: string
+}
+
+export interface LabData {
+  repoPath: string
+  issueTemplateUrl: string
+  readmePath: string
+  steps: LabStepData[]
+}
+
 export interface ExerciseData {
   title: string
   steps: string[]
   expectedOutcomes: string[]
   troubleshooting: string[]
   links: { label: string; href: string }[]
+  lab?: LabData
 }
 
 export interface QuizQuestion {

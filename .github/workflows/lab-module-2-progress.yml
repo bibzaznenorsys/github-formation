@@ -1,0 +1,52 @@
+name: Lab Module 2 Progress
+
+on:
+  push:
+    branches:
+      - 'feature/module-2/**'
+    paths:
+      - 'labs/module-2/**'
+      - '.github/workflows/lab-module-2-progress.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  lab-progress:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: labs/module-2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: labs/module-2/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --reporter=json --outputFile=test-results.json
+        continue-on-error: true
+        id: tests
+
+      - name: Update learner issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          TEST_RESULTS_PATH: test-results.json
+        run: node scripts/update-lab-issue.mjs
+
+      - name: Fail if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1

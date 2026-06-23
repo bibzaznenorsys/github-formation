@@ -65,7 +65,18 @@
     "subtitle": "Pratique guidée avec résultats attendus et dépannage",
     "expectedOutcomes": "Résultats attendus",
     "troubleshootingTips": "Conseils de dépannage",
-    "labLinks": "Liens de laboratoire"
+    "labLinks": "Liens de laboratoire",
+    "labWorkflow": {
+      "title": "Lab pratique (Express + Tests)",
+      "subtitle": "Les participants clônent le repo, cliquent Commencer l'exercice, puis suivent leur issue GitHub étape par étape.",
+      "stepClone": "Cloner le dépôt et lancer npm install dans labs/module-2",
+      "stepReadme": "Ouvrir labs/module-2/README.md pour le contexte et les prérequis",
+      "stepIssue": "Cliquer Commencer l'exercice pour créer une issue GitHub personnelle",
+      "stepFollow": "Suivre uniquement l'étape courante dans votre issue — elle se met à jour après chaque push",
+      "startExercise": "Commencer l'exercice",
+      "openReadme": "Ouvrir le README du lab",
+      "stepsReference": "Référence des branches (vue formateur)"
+    }
   },
   "quiz": {
     "title": "Mode quiz",
