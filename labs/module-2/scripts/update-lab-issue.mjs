@@ -63,6 +63,28 @@ ${lines.join('\n')}
 LAB-CHECKLIST-END`
 }
 
+function getCompletedStepsFromIssue(body) {
+  const completed = []
+
+  for (const step of config.steps) {
+    if (new RegExp(`- \\[x\\] Step ${step.order}:`).test(body)) {
+      completed.push(step.id)
+    }
+  }
+
+  return completed
+}
+
+function mergeCompletedStepIds({ persistedIds, resultIds, branchStep, currentStepPassed }) {
+  const completedSet = new Set([...persistedIds, ...resultIds])
+
+  if (branchStep && currentStepPassed) {
+    completedSet.add(branchStep.id)
+  }
+
+  return config.steps.filter((step) => completedSet.has(step.id)).map((step) => step.id)
+}
+
 function getCompletedStepsFromResults(results) {
   const fileResults = new Map()
 
@@ -205,29 +227,14 @@ async function main() {
     })
   }
 
+  let body = issue.body ?? ''
+
   let results = { testResults: [] }
   try {
     results = JSON.parse(readFileSync(resultsPath, 'utf8'))
   } catch {
     console.log('No test results file found, skipping checklist update')
   }
-
-  const completedStepIds = getCompletedStepsFromResults(results)
-  const nextStep = getNextStep(completedStepIds)
-  const allPassed = completedStepIds.length === config.steps.length
-
-  const currentBlock = renderCurrentStep(nextStep)
-  const checklistBlock = renderChecklist(completedStepIds)
-
-  let body = issue.body ?? ''
-  body = upsertBlock(body, CURRENT_STEP_MARKERS, currentBlock)
-  body = upsertBlock(body, CHECKLIST_MARKERS, checklistBlock)
-
-  await githubRequest(`/repos/${repo}/issues/${issue.number}`, token, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ body }),
-  })
 
   const branchStep = config.steps.find((step) => step.branch === branch)
   const stepPassed = branchStep
@@ -238,6 +245,27 @@ async function main() {
         ),
       )
     : false
+
+  const completedStepIds = mergeCompletedStepIds({
+    persistedIds: getCompletedStepsFromIssue(body),
+    resultIds: getCompletedStepsFromResults(results),
+    branchStep,
+    currentStepPassed: stepPassed,
+  })
+  const nextStep = getNextStep(completedStepIds)
+  const allPassed = completedStepIds.length === config.steps.length
+
+  const currentBlock = renderCurrentStep(nextStep)
+  const checklistBlock = renderChecklist(completedStepIds)
+
+  body = upsertBlock(body, CURRENT_STEP_MARKERS, currentBlock)
+  body = upsertBlock(body, CHECKLIST_MARKERS, checklistBlock)
+
+  await githubRequest(`/repos/${repo}/issues/${issue.number}`, token, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ body }),
+  })
 
   await githubRequest(`/repos/${repo}/issues/${issue.number}/comments`, token, {
     method: 'POST',
